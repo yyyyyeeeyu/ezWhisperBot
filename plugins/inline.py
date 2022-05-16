@@ -36,8 +36,8 @@ from data import whispers
 # https://core.telegram.org/bots/api#callbackquery
 ANSWER_CALLBACK_QUERY_MAX_LENGTH = 200
 
-# https://www.freeiconspng.com/downloadimg/37535
-WHISPER_ICON_URL = "https://www.freeiconspng.com/uploads/whisper-icon-0.png"
+# https://www.freeiconspng.com/img/37540
+WHISPER_ICON_URL = "https://www.freeiconspng.com/uploads/whisper-icon-5.png"
 
 
 @Client.on_inline_query()
