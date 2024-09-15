@@ -36,8 +36,8 @@ from data import whispers
 # https://core.telegram.org/bots/api#callbackquery
 ANSWER_CALLBACK_QUERY_MAX_LENGTH = 200
 
-# https://www.freeiconspng.com/downloadimg/37535
-WHISPER_ICON_URL = "https://www.freeiconspng.com/uploads/whisper-icon-0.png"
+# https://www.freeiconspng.com/img/37540
+WHISPER_ICON_URL = "https://www.freeiconspng.com/uploads/whisper-icon-5.png"
 
 
 @Client.on_inline_query()
@@ -46,35 +46,35 @@ async def answer_iq(_, iq: InlineQuery):
     split = query.split(' ', 1)
     if query == '' or len(query) > ANSWER_CALLBACK_QUERY_MAX_LENGTH \
             or (query.startswith('@') and len(split) == 1):
-        title = f"{emoji.FIRE} Write a whisper message"
-        content = ("**Send whisper messages through inline mode**\n\n"
-                   "Usage: `@ezWhisperBot [@username|@] text`")
-        description = "Usage: @ezWhisperBot [@username|@] text"
+        title = f"{emoji.FIRE} Fısıltı mesajı yaz"
+        content = ("**Satır içi mod aracılığıyla fısıltı mesajları gönderin**\n\n"
+                   "Usage: `@BloodFisiltiBot [@username|@] text`")
+        description = "Usage: @BloodFisiltiBot [@username|@] text"
         button = InlineKeyboardButton(
             "Learn more...",
-            url="https://t.me/ezWhisperBot?start=learn"
+            url="https://t.me/BloodFisiltiBot?start=learn"
         )
     elif not query.startswith('@'):
-        title = f"{emoji.EYE} Whisper once to the first one who open it"
+        title = f"{emoji.EYE} İlk açana bir kez fısılda"
         content = (
-            f"{emoji.EYE} The first one who open the whisper can read it"
+            f"{emoji.EYE} Fısıltıyı ilk açan okuyabilir"
         )
         description = f"{emoji.SHUSHING_FACE} {query}"
         button = InlineKeyboardButton(
-            f"{emoji.EYE} show message",
+            f"{emoji.EYE} Mesajı Göster",
             callback_data="show_whisper"
         )
     else:
         # Python 3.8+
         u_target = 'anyone' if (x := split[0]) == '@' else x
-        title = f"{emoji.LOCKED} A whisper message to {u_target}"
-        content = f"{emoji.LOCKED} A whisper message to {u_target}"
+        title = f"{emoji.LOCKED} Bir fısıltı mesajı {u_target}"
+        content = f"{emoji.LOCKED} Bir fısıltı mesajı {u_target}"
         description = f"{emoji.SHUSHING_FACE} {split[1]}"
         button = InlineKeyboardButton(
-            f"{emoji.LOCKED_WITH_KEY} show message",
+            f"{emoji.LOCKED_WITH_KEY} Mesajı Göster",
             callback_data="show_whisper"
         )
-    switch_pm_text = f"{emoji.INFORMATION} Learn how to send whispers"
+    switch_pm_text = f"{emoji.INFORMATION}  Fısıltıları nasıl göndereceğinizi öğrenin."
     switch_pm_parameter = "learn"
     await iq.answer(
         results=[
@@ -119,8 +119,8 @@ async def answer_cq(_, cq: CallbackQuery):
     inline_message_id = cq.inline_message_id
     if not inline_message_id or inline_message_id not in whispers:
         try:
-            await cq.answer("Can't find the whisper text", show_alert=True)
-            await cq.edit_message_text(f"{emoji.NO_ENTRY} invalid whisper")
+            await cq.answer("Fısıltı metnini bulamıyorum", show_alert=True)
+            await cq.edit_message_text(f"{emoji.NO_ENTRY} geçersiz fısıltı")
         except (MessageIdInvalid, MessageNotModified):
             pass
         return
@@ -140,7 +140,7 @@ async def answer_cq(_, cq: CallbackQuery):
         if not receiver_uname:
             await read_the_whisper(cq)
             return
-        await cq.answer("This is not for you", show_alert=True)
+        await cq.answer("Bu senin için değil", show_alert=True)
 
 
 async def read_the_whisper(cq: CallbackQuery):
@@ -159,7 +159,7 @@ async def read_the_whisper(cq: CallbackQuery):
     try:
         t_emoji = emoji.UNLOCKED if receiver_uname else emoji.EYES
         await cq.edit_message_text(
-            f"{t_emoji} {user_mention} read the message"
+            f"{t_emoji} {user_mention} Mesajı oku"
         )
     except (MessageIdInvalid, MessageNotModified):
         pass
